@@ -33,6 +33,7 @@ public class Persona {
     private String nombres;
     @Column(name="fecha_nacimiento")
     private Date fechaNacimiento;
+    @Column(name="ndocumento")
     private String nDocumento;
     private String direccion; 
     
