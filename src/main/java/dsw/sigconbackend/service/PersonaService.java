@@ -48,5 +48,35 @@ public class PersonaService {
         persona=personaRepository.save(persona);
         return PersonaResponse.fromEntity(persona);
     }
+    public PersonaResponse updatePersona(PersonaRequest personaRequest){
+        Integer idTipoDocumento = personaRequest.getIdTipoDocumento();
+        TipoDocumento tipoDocumento =tipoDocumentoRepository.findById(idTipoDocumento).get();
+        if(tipoDocumento==null) return new PersonaResponse();
+        
+        String idUbigeo=personaRequest.getIdUbigeo();
+        Ubigeo ubigeo=ubigeoRepository.findById(idUbigeo).get();
+        if(ubigeo==null) return new PersonaResponse();
+        
+        Persona persona=new Persona(
+            personaRequest.getIdPersona(),
+            personaRequest.getApellidoPaterno(),
+            personaRequest.getApellidoMaterno(),
+            personaRequest.getNombres(),
+            personaRequest.getFechaNacimiento(),
+            personaRequest.getNDocumento(),
+            personaRequest.getDireccion(),
+            tipoDocumento,
+            ubigeo
+        );        
+        persona=personaRepository.save(persona);
+        return PersonaResponse.fromEntity(persona);
+    }
+    public void deletePersona(Long id){
+        personaRepository.deleteById(id);
+    }
+    
+    public PersonaResponse findPersona(Long id){
+        return PersonaResponse.fromEntity(personaRepository.findById(id).get());    
+    }
     
 }
