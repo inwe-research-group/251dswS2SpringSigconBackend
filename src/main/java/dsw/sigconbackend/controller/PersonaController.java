@@ -1,5 +1,6 @@
 package dsw.sigconbackend.controller;
 
+import dsw.sigconbackend.dto.NPersonasXTipoDocumento;
 import dsw.sigconbackend.dto.PersonaRequest;
 import dsw.sigconbackend.dto.PersonaResponse;
 import dsw.sigconbackend.service.PersonaService;
@@ -107,5 +108,18 @@ public class PersonaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder().message("Persona not found").build());
         return ResponseEntity.ok(personaResponse);                
     }
-    
+    @GetMapping("/NPersonasXTipoDocumento")
+    public ResponseEntity<?> getNPersonasXTipoDocumento(){
+        List<NPersonasXTipoDocumento> listaNPersonasXTipoDocumento=null;
+        try{
+            listaNPersonasXTipoDocumento=personaService.getNPersonasXTipoDocumento();
+
+        }catch(Exception e){
+            logger.error("Error inesperado",e);
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        if(listaNPersonasXTipoDocumento.isEmpty())
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ErrorResponse.builder().message("NPersonasXTipoDocumento not found").build());
+        return ResponseEntity.ok(listaNPersonasXTipoDocumento);
+    }
 }

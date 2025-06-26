@@ -1,5 +1,6 @@
 package dsw.sigconbackend.service;
 
+import dsw.sigconbackend.dto.NPersonasXTipoDocumento;
 import dsw.sigconbackend.dto.PersonaRequest;
 import dsw.sigconbackend.dto.PersonaResponse;
 import dsw.sigconbackend.model.Persona;
@@ -82,5 +83,7 @@ public class PersonaService {
             return null;
         return PersonaResponse.fromEntity(result.get());
     }
-    
+    public List<NPersonasXTipoDocumento> getNPersonasXTipoDocumento(){
+        return personaRepository.getNPersonasXTipoDocumento();
+    }
 }
